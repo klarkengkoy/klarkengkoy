@@ -1,0 +1,12 @@
+.idea/
+*.iml
+.gradle/
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
+build/
+Android Application Projects/**/build/
+Android Application Projects/**/.idea/
+Android Application Projects/**/.gradle/
+Android Application Projects/**/local.properties

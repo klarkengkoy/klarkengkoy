@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clark Gabriel E. Samson — Android Engineer</title>
+<meta name="description" content="Android Engineer portfolio — architecture, platform depth, and five shipped apps.">
+
+<!--
+  ============================================================
+  BEFORE YOU PUBLISH — replace these placeholders:
+  1. Clark Gabriel E. Samson — appears in <title>, nav, hero, footer
+  2. mr.cgsamson@gmail.com     — contact section
+  3. https://github.com/klarkengkoy           — nav + footer + each project card
+  4. https://www.linkedin.com/in/clarksamson/         — footer
+  5. [resume-url]           — hero CTA (link to a hosted PDF or /resume.pdf in this repo)
+  6. Each project's [repo-link] / [play-store-link]
+  7. "20XX" placeholders in the Journey timeline — swap for your real ranges,
+     or keep them relative ("Years 1–2") if you'd rather not date yourself.
+  8. Screenshots: swap the placeholder .card-visual blocks for real
+     screenshots/GIFs once you have them — recruiters skim images first.
+  ============================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink-900:#0b1220;
+    --ink-800:#0f1830;
+    --ink-700:#16223c;
+    --ink-600:#1d2c4a;
+    --grid-line:#1e2c46;
+    --paper:#e9e6da;
+    --muted:#93a0b8;
+    --muted-dim:#5f6d87;
+    --amber:#e8a33d;
+    --amber-dim:#b9832f;
+    --teal:#5fc3b8;
+    --radius:2px;
+    --font-display:'Space Grotesk', sans-serif;
+    --font-body:'IBM Plex Sans', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+    --maxw:1080px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--ink-900);
+    color:var(--paper);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:var(--amber); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--amber); outline-offset:3px;}
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+
+  .mono{font-family:var(--font-mono);}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--amber);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  /* Removed the emdash line ::before for clarity */
+
+  h1,h2,h3{font-family:var(--font-display); font-weight:600; margin:0; letter-spacing:-.01em;}
+
+  /* ---------- NAV ---------- */
+  header.site-nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,18,32,.86);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--grid-line);
+  }
+  .nav-inner{
+    max-width:var(--maxw); margin:0 auto; padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{font-family:var(--font-mono); font-size:14px; color:var(--paper);}
+  .brand b{color:var(--amber); font-weight:600;}
+  .brand small{display:block; color:var(--muted-dim); font-size:11px; letter-spacing:.06em;}
+  nav.links{display:flex; gap:26px; font-family:var(--font-mono); font-size:13px;}
+  nav.links a{color:var(--muted);}
+  nav.links a:hover{color:var(--amber);}
+  .nav-toggle{display:none;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:120px 0 96px;
+    overflow:hidden;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size:40px 40px;
+    background-position:center top;
+  }
+  .hero-content{position:relative;}
+  .hero h1{
+    font-size:clamp(34px, 5.4vw, 58px);
+    line-height:1.08;
+    max-width:16ch;
+  }
+  .hero h1 em{font-style:normal; color:var(--amber);}
+  .hero p.lede{
+    max-width:56ch; color:var(--muted); font-size:17px; margin-top:22px;
+  }
+  .hero-cta{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--font-mono); font-size:13px; letter-spacing:.03em;
+    padding:12px 20px; border-radius:var(--radius);
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--grid-line);
+  }
+  .btn-primary{background:var(--amber); color:var(--ink-900); border-color:var(--amber); font-weight:600;}
+  .btn-primary:hover{background:#f0b458; text-decoration:none;}
+  .btn-ghost{color:var(--paper);}
+  .btn-ghost:hover{border-color:var(--amber); color:var(--amber); text-decoration:none;}
+
+  /* dimension-line stat annotations */
+  .specs{
+    display:flex; gap:0; margin-top:64px; flex-wrap:wrap;
+  }
+  .spec{
+    flex:1; min-width:160px; padding:18px 22px 0; position:relative;
+  }
+  .spec:last-child{border-right:none;}
+  .spec .dim-line{
+    position:absolute; top:0; left:22px; right:22px; height:6px;
+  }
+  .spec .dim-line::before, .spec .dim-line::after{
+    content:"|"; position:absolute; top:-8px; color:var(--muted-dim); font-family:var(--font-mono); font-size:11px;
+  }
+  .spec .dim-line::before{left:0;}
+  .spec .dim-line::after{right:0;}
+  .spec .num{font-family:var(--font-mono); color:var(--amber); font-size:22px; font-weight:600;}
+  .spec .label{color:var(--muted); font-size:13px; margin-top:4px;}
+
+  .titleblock{
+    position:absolute; right:0; bottom:-70px;
+    font-family:var(--font-mono); font-size:11px; color:var(--muted-dim);
+    text-align:right; letter-spacing:.05em; text-transform:uppercase;
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:96px 0;}
+  section + section{border-top:1px solid var(--grid-line);}
+  .section-head{margin-bottom:48px; max-width:60ch;}
+  .section-head h2{font-size:clamp(24px,3.2vw,32px);}
+  .section-head p{color:var(--muted); margin-top:12px;}
+
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease;}
+  .reveal.is-visible{opacity:1; transform:none;}
+
+  /* ---------- JOURNEY ---------- */
+  .timeline{position:relative; padding-left:30px; border-left:1px solid var(--grid-line);}
+  .tl-item{position:relative; padding-bottom:44px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:""; position:absolute; left:-35px; top:4px;
+    width:9px; height:9px; border-radius:50%;
+    background:var(--ink-900); border:2px solid var(--amber);
+  }
+  .tl-item .tag{
+    font-family:var(--font-mono); font-size:12px; color:var(--amber);
+    letter-spacing:.06em; text-transform:uppercase;
+  }
+  .tl-item h3{font-size:19px; margin-top:8px; color:var(--paper);}
+  .tl-item p{color:var(--muted); margin-top:8px; max-width:64ch; font-size:15px;}
+
+  /* ---------- SKILLS / layout_inspector ---------- */
+  .inspector{
+    border:1px solid var(--grid-line); border-radius:var(--radius); overflow:hidden;
+  }
+  .attr-row{
+    display:grid; grid-template-columns:220px 1fr;
+    border-bottom:1px solid var(--grid-line);
+    font-family:var(--font-mono); font-size:14px;
+  }
+  .attr-row:last-child{border-bottom:none;}
+  .attr-key{
+    padding:16px 18px; background:var(--ink-800); color:var(--teal);
+    display:flex; align-items:center;
+  }
+  .attr-val{padding:16px 18px; color:var(--paper); display:flex; align-items:center;}
+  .attr-val .quote{color:var(--muted-dim);}
+  .attr-val .value{color:var(--amber);}
+  @media (max-width:640px){
+    .attr-row{grid-template-columns:1fr;}
+    .attr-key{border-bottom:1px solid var(--grid-line);}
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .project-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:22px;}
+  @media (max-width:760px){.project-grid{grid-template-columns:1fr;}}
+
+  .card{
+    border:1px solid var(--grid-line); border-radius:var(--radius);
+    background:var(--ink-800);
+    display:flex; flex-direction:column;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .card:hover{border-color:var(--amber-dim); transform:translateY(-2px);}
+  .card.flagship{grid-column:1 / -1; border-color:var(--amber);}
+  .card-top{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    padding:20px 22px 0;
+  }
+  .card-top h3{font-size:20px; color:var(--paper);}
+  .status{
+    font-family:var(--font-mono); font-size:10.5px; letter-spacing:.06em;
+    padding:4px 8px; border:1px solid var(--grid-line); color:var(--muted); white-space:nowrap;
+  }
+  .status.live{color:var(--teal); border-color:var(--teal);}
+  .status.flagship{color:var(--amber); border-color:var(--amber);}
+  .tagline{color:var(--muted); padding:8px 22px 0; font-size:14.5px;}
+
+  .card-visual{
+    margin:18px 22px 0; height:120px;
+    background-image:linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size:16px 16px;
+    border:1px dashed var(--grid-line);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono); font-size:11px; color:var(--muted-dim); letter-spacing:.05em; text-transform:uppercase;
+  }
+
+  .prop-list{padding:18px 22px 0; font-family:var(--font-mono); font-size:13px;}
+  .prop-list div{display:flex; gap:8px; padding:5px 0; border-top:1px dotted var(--grid-line);}
+  .prop-list div:first-child{border-top:none;}
+  .prop-list .k{color:var(--muted-dim); min-width:96px; flex-shrink:0;}
+  .prop-list .v{color:var(--muted);}
+  .prop-list .next .k, .prop-list .next .v{color:var(--teal);}
+
+  .tags{display:flex; flex-wrap:wrap; gap:6px; padding:16px 22px 0;}
+  .tags span{
+    font-family:var(--font-mono); font-size:11px; color:var(--muted);
+    border:1px solid var(--grid-line); padding:3px 8px; border-radius:999px;
+  }
+
+  .card-links{padding:18px 22px 22px; margin-top:auto; display:flex; gap:16px; font-family:var(--font-mono); font-size:12.5px;}
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid{display:flex; gap:40px; flex-wrap:wrap; align-items:flex-end; justify-content:space-between;}
+  .contact-links{display:flex; gap:24px; flex-wrap:wrap; font-family:var(--font-mono); font-size:14px;}
+
+  footer{padding:40px 0; border-top:1px solid var(--grid-line);}
+  footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-family:var(--font-mono); font-size:12px; color:var(--muted-dim);}
+
+  @media (max-width:640px){
+    nav.links{display:none;}
+    .titleblock{position:static; margin-top:24px; text-align:left;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <div class="brand"><b>Clark Gabriel E. Samson</b><small>android engineer · tokyo, japan</small></div>
+    <nav class="links">
+      <a href="#journey">journey</a>
+      <a href="#skills">skills</a>
+      <a href="#projects">projects</a>
+      <a href="#contact">contact</a>
+      <a href="https://github.com/klarkengkoy" target="_blank" rel="noopener">github ↗</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-content">
+    <p class="eyebrow">07 yrs android · tokyo-based · upskilling 2025–2026</p>
+    <h1>7 Years of Android Expertise.<br>Bridging Platform Depth with Modern Development.</h1>
+    <p class="lede">
+      Android Engineer with a unique background: 3 years of building applications
+      and 4 years supporting the Android Enterprise ecosystem at Google. Currently in Tokyo,
+      advancing my stack with modern Architecture.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#projects">View developed apps</a>
+      <a class="btn btn-ghost" href="Samson CV 2026.pdf" target="_blank" rel="noopener">CV / Résumé</a>
+    </div>
+
+    <div class="specs">
+      <div class="spec"><div class="num">03 yrs</div><div class="label">Application Development</div></div>
+      <div class="spec"><div class="num">04 yrs</div><div class="label">Platform Expert @ Google</div></div>
+      <div class="spec"><div class="num">Tokyo</div><div class="label">Independent R&D / Upskilling</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="journey">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">01 — journey</p>
+      <h2>Professional Timeline</h2>
+      <p>From application development to deep platform support, and now to modern architecture.</p>
+    </div>
+
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <p class="tag mono">2019 – 2021 · Junior Developer → Android Developer</p>
+        <h3>Software Ventures International</h3>
+        <p>Started as a generalist junior developer, quickly specializing in Android. Focused on building and
+        maintaining production applications using Java and early Kotlin, mastering the fundamentals
+        of the Android SDK and life-cycle management.</p>
+      </div>
+      <div class="tl-item">
+        <p class="tag mono">2021 – 2025 · Technical Support Analyst → Technical Support Expert</p>
+        <h3>Android Enterprise @ Google (via Accenture)</h3>
+        <p>Four years supporting Google's Android Enterprise ecosystem. Specializing in enterprise
+        mobility, device management (EMM/MDM), and platform-level troubleshooting. Investigated
+        OEM fragmentation, work profiles, and Managed Google Play at scale.</p>
+      </div>
+      <div class="tl-item">
+        <p class="tag mono">Oct 2025 – Present · Tokyo, Japan</p>
+        <h3>Independent Development & Research</h3>
+        <p>Relocated to Tokyo. Pursuing language studies while independently developing
+        Android applications. Currently building personal projects to align with the
+        latest industry best practices and architectural standards. Actively open to
+        new Android development opportunities.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">02 — Skills</p>
+      <h2>Skills, read like attributes</h2>
+      <p>What each app on this page was deliberately built to exercise.</p>
+    </div>
+
+    <div class="inspector reveal">
+      <div class="attr-row">
+        <div class="attr-key">architecture</div>
+        <div class="attr-val"><span class="value">clean · mvvm · modular · hilt</span></div>
+      </div>
+      <div class="attr-row">
+        <div class="attr-key">concurrency_data</div>
+        <div class="attr-val"><span class="value">coroutines · flow / stateflow · room · datastore · retrofit</span></div>
+      </div>
+      <div class="attr-row">
+        <div class="attr-key">modern_ui</div>
+        <div class="attr-val"><span class="value">jetpack compose · navigation 3 · material 3</span></div>
+      </div>
+      <div class="attr-row">
+        <div class="attr-key">firebase</div>
+        <div class="attr-val"><span class="value">auth · firestore · crashlytics</span></div>
+      </div>
+      <div class="attr-row">
+        <div class="attr-key">platform_depth</div>
+        <div class="attr-val"><span class="value">android enterprise · android management api · google play emm api · emm · mdm</span></div>
+      </div>
+      <div class="attr-row">
+        <div class="attr-key">devops</div>
+        <div class="attr-val"><span class="value">git · gradle · android studio</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">03 — projects</p>
+      <h2>Technical Projects</h2>
+      <p>Independent work showcasing architectural patterns, modern Android standards, and platform-level API integrations.</p>
+    </div>
+
+    <div class="project-grid">
+
+      <!-- FLAGSHIP -->
+      <article class="card flagship reveal">
+        <div class="card-top">
+          <h3>TripTrack</h3>
+          <span class="status flagship">flagship · in progress</span>
+        </div>
+        <p class="tagline">A travel journal today. A map-based social platform for travelers, tomorrow.</p>
+        <div class="card-visual">screenshot / demo gif</div>
+        <div class="prop-list">
+          <div><span class="k">demonstrates</span><span class="v">an offline-first data model designed up front to survive a pivot to a social platform without a rewrite</span></div>
+        </div>
+        <div class="tags"><span>Kotlin</span><span>Room</span><span>Firebase Firestore</span><span>Maps SDK</span><span>Media Storage</span><span>Offline-first</span></div>
+        <div class="card-links">
+          <a href="https://github.com/klarkengkoy/Trip-Track" target="_blank" rel="noopener">source ↗</a>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top">
+          <h3>NeoGlideLauncher</h3>
+          <span class="status">pre-launch → play store</span>
+        </div>
+        <p class="tagline">A home screen &amp; app drawer, engineered around real device math.</p>
+        <div class="card-visual">screenshot / demo gif</div>
+        <div class="prop-list">
+          <div><span class="k">demonstrates</span><span class="v">layout algorithms driven by actual device dimensions and density, not fixed dp guesses; cold-start performance discipline; end-to-end Play Store monetization</span></div>
+        </div>
+        <div class="tags"><span>Kotlin</span><span>Jetpack Compose</span><span>Custom Layouts</span><span>WindowManager</span><span>Play Billing</span><span>Performance</span></div>
+        <div class="card-links">
+          <a href="https://github.com/klarkengkoy/NeoGlide-Launcher" target="_blank" rel="noopener">source ↗</a>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top">
+          <h3>MoshiMoshi</h3>
+          <span class="status">personal project</span>
+        </div>
+        <p class="tagline">A Japanese conversation partner, powered by Gemini.</p>
+        <div class="card-visual">screenshot / demo gif</div>
+        <div class="prop-list">
+          <div><span class="k">demonstrates</span><span class="v">an AI orchestration layer kept separate from UI state; structured LLM output (hiragana/katakana/grammar notes); graceful handling of a free-tier API — retries, rate limits, offline fallback</span></div>
+        </div>
+        <div class="tags"><span>Gemini API</span><span>Real-time Audio</span><span>Kotlin Coroutines</span><span>Prompt Engineering</span></div>
+        <div class="card-links">
+          <a href="https://github.com/klarkengkoy/MoshiMoshi" target="_blank" rel="noopener">source ↗</a>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top">
+          <h3>PocketDex</h3>
+          <span class="status">personal project</span>
+        </div>
+        <p class="tagline">A PokeAPI client, used as a networking &amp; testing playground.</p>
+        <div class="card-visual">screenshot / demo gif</div>
+        <div class="prop-list">
+          <div><span class="k">demonstrates</span><span class="v">a clean networking layer, built on solid fundamentals</span></div>
+        </div>
+        <div class="tags"><span>Retrofit</span><span>Kotlin Coroutines</span><span>MVVM</span><span>Unit Testing</span></div>
+        <div class="card-links">
+          <a href="https://github.com/klarkengkoy/PocketDex" target="_blank" rel="noopener">source ↗</a>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top">
+          <h3>FlashcardsCustomStudyCards</h3>
+          <span class="status">personal project</span>
+        </div>
+        <p class="tagline">Customizable study cards for focused learning.</p>
+        <div class="card-visual">screenshot / demo gif</div>
+        <div class="prop-list">
+          <div><span class="k">demonstrates</span><span class="v">Local data persistence with Room, complex state management in Compose, and user-centric UI design for educational tools.</span></div>
+        </div>
+        <div class="tags"><span>Kotlin</span><span>Room</span><span>Jetpack Compose</span><span>Education</span></div>
+        <div class="card-links">
+          <a href="https://github.com/klarkengkoy/Flashcards" target="_blank" rel="noopener">source ↗</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap contact-grid reveal">
+    <div>
+      <p class="eyebrow">04 — contact</p>
+      <h2>Get in touch.</h2>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:mr.cgsamson@gmail.com">mr.cgsamson@gmail.com</a>
+      <a href="https://github.com/klarkengkoy" target="_blank" rel="noopener">github ↗</a>
+      <a href="https://www.linkedin.com/in/clarksamson/" target="_blank" rel="noopener">linkedin ↗</a>
+      <a href="Samson CV 2026.pdf" target="_blank" rel="noopener">CV / Résumé ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> Clark Gabriel E. Samson</span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('is-visible'));
+  }
+</script>
+
+</body>
+</html>
