@@ -50,7 +50,7 @@ development and staying at the forefront of modern Android architecture.
 | **[NeoGlideLauncher](https://github.com/klarkengkoy/NeoGlideLauncher)** — pre-launch on Play Store | Custom layout math driven by real device dimensions; monetization end-to-end | Kotlin · Custom Views/Compose · WindowManager · Play Billing |
 | **[MoshiMoshi](https://github.com/klarkengkoy/MoshiMoshi)** — AI speaking buddy | AI orchestration kept separate from UI; structured LLM output; resilient free-tier API handling | Gemini API · real-time audio · Coroutines |
 | **[PocketDex](https://github.com/klarkengkoy/PocketDex)** | Networking + testing fundamentals, in progress toward full offline-cache + test coverage | Retrofit · MVVM |
-| **[FlashcardsCustomStudyCards](https://github.com/klarkengkoy/FlashcardsCustomStudyCards)** | Local persistence & Compose UI | Kotlin · Room · Compose |
+| **[Flashcards](https://github.com/klarkengkoy/Flashcards)** | Local persistence & modern Navigation | Kotlin · Room · Compose · Nav 3 · Hilt |
 
 ---
 
