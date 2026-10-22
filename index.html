@@ -250,6 +250,8 @@
       flex-shrink: 0; border:1px solid var(--grid-line);
       pointer-events:none; /* Prevents ghost image dragging */
     }
+    .card-visual.screenshot-gallery{height:260px; min-height:0; justify-content:flex-start;}
+    .card-visual.screenshot-gallery img{height:100%;}
 
     .prop-list{padding:18px 22px 0; font-family:var(--font-mono); font-size:13px;}
     .prop-list div{display:flex; gap:8px; padding:5px 0; border-top:1px dotted var(--grid-line);}
@@ -515,7 +517,14 @@
           <span class="status">personal project</span>
         </div>
         <p class="tagline">Personal study tool for custom cards and focused learning.</p>
-        <div class="card-visual">screenshot / demo gif</div>
+        <div class="card-visual screenshot-gallery" role="group" aria-label="Flashcards app screenshots">
+          <img src="assets/screenshots/flashcards/deck_list_portrait.png" alt="Flashcards deck list showing Japanese kanji study decks" loading="lazy" draggable="false">
+          <img src="assets/screenshots/flashcards/flashcard_front_portrait.png" alt="Flashcard showing the kanji for Respect for the Aged Day" loading="lazy" draggable="false">
+          <img src="assets/screenshots/flashcards/flashcard_back_portrait.png" alt="Flashcard showing the English meaning and Japanese reading" loading="lazy" draggable="false">
+          <img src="assets/screenshots/flashcards/landscape_empty_state.png" alt="Flashcards tablet layout with no deck selected" loading="lazy" draggable="false">
+          <img src="assets/screenshots/flashcards/landscape_flashcard_front.png" alt="Flashcards tablet layout showing a kanji card" loading="lazy" draggable="false">
+          <img src="assets/screenshots/flashcards/landscape_flashcard_back.png" alt="Flashcards tablet layout showing the card meaning" loading="lazy" draggable="false">
+        </div>
         <div class="prop-list">
           <div><span class="k">why</span><span class="v">local persistence plus state management for learning tools</span></div>
         </div>
