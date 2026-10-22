@@ -1,0 +1,58 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  "model": "opencode/flint-40b-free",
+  "default_agent": "build",
+
+  "agents": {
+    "build": {
+      "model": "opencode/flint-40b-free",
+      "description": "Default coding agent for portfolio (HTML/CSS/JS)",
+      "permissions": [
+        { "action": "shell", "resource": "*", "effect": "ask" },
+        { "action": "shell", "resource": "npx *", "effect": "allow" },
+        { "action": "shell", "resource": "npm *", "effect": "allow" }
+      ]
+    },
+    "plan": {
+      "model": "opencode/nemotron-3-ultra-free",
+      "description": "Plan portfolio changes, design decisions, refactors"
+    },
+    "css-audit": {
+      "mode": "subagent",
+      "model": "opencode/beam-free",
+      "description": "Reviews CSS for specificity conflicts, unused rules, responsive breakpoints, modern syntax",
+      "system": "You are a CSS auditor. Review the given CSS/SCSS files for:\n- Specificity wars and !important abuse\n- Unused/duplicate rules\n- Missing responsive breakpoints\n- Modern syntax opportunities (container queries, :has(), cascade layers)\n- Performance (redundant animations, large selectors)\n- Accessibility (contrast, focus states, reduced motion)\nReport findings by severity with file:line references. Do not edit files.",
+      "permissions": [
+        { "action": "*", "resource": "*", "effect": "deny" },
+        { "action": "read", "resource": "**/*.{css,scss,html}", "effect": "allow" },
+        { "action": "glob", "resource": "**/*.{css,scss,html}", "effect": "allow" },
+        { "action": "grep", "resource": "**/*.{css,scss,html}", "effect": "allow" }
+      ]
+    },
+    "html-reviewer": {
+      "mode": "subagent",
+      "model": "opencode/nemotron-3.5-super-vl-free",
+      "description": "Reviews HTML for semantic structure, accessibility, SEO, and Compose-like component patterns",
+      "system": "You are an HTML reviewer. Check for:\n- Semantic HTML5 elements (header, main, section, article, aside, nav, footer)\n- Accessibility: ARIA labels, heading hierarchy, alt text, form labels, landmarks\n- SEO: meta tags, Open Graph, structured data, canonical URLs\n- Performance: preload, defer, async, image optimization\n- Component-like structure: reusable sections, BEM/utility class consistency\n- GitHub Pages constraints (no server-side, static only)\nReport findings by severity. Do not edit files.",
+      "permissions": [
+        { "action": "*", "resource": "*", "effect": "deny" },
+        { "action": "read", "resource": "**/*.html", "effect": "allow" },
+        { "action": "glob", "resource": "**/*.html", "effect": "allow" },
+        { "action": "grep", "resource": "**/*.html", "effect": "allow" }
+      ]
+    },
+    "deploy-check": {
+      "mode": "subagent",
+      "model": "opencode/minimax-m3.1-flash-free",
+      "description": "Validates GitHub Pages deployment readiness",
+      "system": "You verify the portfolio is ready for GitHub Pages deployment. Check:\n- index.html exists at repo root\n- All asset paths are relative (no absolute /paths/)\n- No server-side dependencies (PHP, Node runtime, etc.)\n- CSP headers via meta tags if needed\n- Custom domain CNAME file if configured\n- .nojekyll file if using non-Jekyll static site\n- Build scripts output to correct folder\nReport blockers and warnings.",
+      "permissions": [
+        { "action": "*", "resource": "*", "effect": "deny" },
+        { "action": "read", "resource": "**/*", "effect": "allow" },
+        { "action": "glob", "resource": "**/*", "effect": "allow" },
+        { "action": "shell", "resource": "git *", "effect": "allow" }
+      ]
+    }
+  }
+}

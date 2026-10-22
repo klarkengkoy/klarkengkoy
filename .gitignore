@@ -1,12 +1,20 @@
+# IDE
 .idea/
-*.iml
-.gradle/
-local.properties
-captures/
-.externalNativeBuild/
-.cxx/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Dependencies
+node_modules/
+
+# Build output (if you add a build step)
+dist/
 build/
-Android Application Projects/**/build/
-Android Application Projects/**/.idea/
-Android Application Projects/**/.gradle/
-Android Application Projects/**/local.properties
