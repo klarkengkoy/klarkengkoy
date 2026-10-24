@@ -130,3 +130,6 @@ gallery.listeners.click({ ...imageClick, ctrlKey: true });
 assert.equal(viewer.open, false);
 assert.equal(prevented, false);
 console.log('Profile checks passed: assets, career entries, notes, galleries, image viewer, focus and grid rows.');
+
+assert(html.includes('Currently working on personal Android projects using modern tools and practices while studying Japanese.'));
+assert(!html.includes('personal project · in progress'));
