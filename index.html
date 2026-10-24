@@ -208,6 +208,8 @@
       .attr-key{border-bottom:1px solid var(--grid-line);}
     }
 
+    .personal-note{max-width:64ch; color:var(--muted); border-left:2px solid var(--teal); padding-left:16px; margin:24px 0;}
+
     /* ---------- PROJECTS ---------- */
     .project-grid{display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:22px;}
     @media (max-width:760px){.project-grid{grid-template-columns:1fr;}}
@@ -312,7 +314,7 @@
     <p class="lede">I’m studying Japanese and working on personal Android projects using modern tools and practices.</p>
     <div class="hero-cta">
       <a class="btn btn-primary" href="#work">See the work</a>
-      <a class="btn btn-ghost" href="Samson CV 2026.pdf" target="_blank" rel="noopener">CV / Résumé</a>
+      <a class="btn btn-ghost" href="https://github.com/klarkengkoy/klarkengkoy/raw/refs/heads/main/Samson%20CV%202026.pdf" target="_blank" rel="noopener">CV / Résumé</a>
     </div>
 
   </div>
@@ -320,25 +322,32 @@
 
 <section id="journey">
   <div class="wrap">
-    <div class="section-head reveal">
-      <p class="eyebrow">01 — journey</p>
+    <div class="section-head">
       <h2>How I got here</h2>
       <p>From application development to Android Enterprise technical support.</p>
     </div>
 
-    <div class="timeline reveal">
+    <div class="timeline">
       <div class="tl-item">
-        <p class="tag mono">2019 – 2021 · android developer</p>
+        <p class="tag">March 2019 – March 2021</p>
         <h3>Software Ventures International</h3>
+        <p><strong>Software Developer · Android development focus</strong></p>
         <p>Built Android apps for HR and workforce management, including applications from scratch. Took over existing apps, improved their architecture, and migrated legacy Java code to Kotlin.</p>
       </div>
       <div class="tl-item">
-        <p class="tag mono">2021 – 2025 · android enterprise</p>
-        <h3>Android Enterprise — Google</h3>
-        <p>Technical Support Analyst, then Technical Support Expert. Supported engineers at EMM and MDM providers using Android Management API, Google Play EMM API, and Zero-Touch API. Reproduced reported issues in comparable environments, reviewed device bug reports, and escalated suspected API defects to Google engineering teams.</p>
+        <p class="tag">July 2021 – March 2023</p>
+        <h3>Accenture / Google</h3>
+        <p><strong>Accenture:</strong> Advanced App Engineering Analyst<br><strong>Google:</strong> Android Enterprise Technical Support Analyst</p>
+        <p>Employed by Accenture and assigned to Google’s Android Enterprise technical support. Supported engineers at EMM and MDM providers using Android Management API, Google Play EMM API, and Zero-Touch API.</p>
       </div>
       <div class="tl-item">
-        <p class="tag mono">oct 2025 – present · tokyo, japan</p>
+        <p class="tag">April 2023 – September 2025</p>
+        <h3>Accenture / Google</h3>
+        <p><strong>Accenture:</strong> Custom App Engineering Analyst<br><strong>Google:</strong> Android Enterprise Technical Support Expert</p>
+        <p>Continued the Android Enterprise assignment through Accenture. Reproduced reported issues in comparable environments, reviewed device bug reports, and escalated suspected API defects to Google engineering teams.</p>
+      </div>
+      <div class="tl-item">
+        <p class="tag">oct 2025 – present · tokyo, japan</p>
         <h3>Personal projects and language study</h3>
         <p>Moved to Tokyo to be with my wife. I’m studying Japanese and making personal Android apps with modern tools and practices. I build them for my own use and may share them as examples of my work.</p>
       </div>
@@ -442,7 +451,7 @@
     <div class="section-head reveal">
       <p class="eyebrow">03 — work</p>
       <h2>Things I've built</h2>
-      <p>Independent work, plus the apps I built before going independent.</p>
+      <p>These are recent personal projects. Applications I developed for previous employers aren’t shown here because they’re proprietary.</p>
     </div>
 
     <div class="project-grid">
@@ -454,9 +463,7 @@
         </div>
         <p class="tagline">Offline-first travel journal. Local persistence first, cloud sync after.</p>
         <div class="card-visual">screenshot / demo gif</div>
-        <div class="prop-list">
-          <div><span class="k">why</span><span class="v">offline-first data model, built to survive sync-heavy pivots without a rewrite</span></div>
-        </div>
+        <p class="personal-note">I wanted an ambitious project where I could bring together Android development and system design. It’s a way to explore a broader Android stack, though I may not publish it.</p>
         <div class="tags"><span>Kotlin</span><span>Room</span><span>Firebase Firestore</span><span>Maps SDK</span><span>Media Storage</span><span>Offline-first</span></div>
         <div class="card-links">
           <a href="https://github.com/klarkengkoy/Trip-Track" target="_blank" rel="noopener">source ↗</a>
@@ -470,9 +477,7 @@
         </div>
         <p class="tagline">Customizable home screen driven by real device layouts.</p>
         <div class="card-visual">screenshot / demo gif</div>
-        <div class="prop-list">
-          <div><span class="k">why</span><span class="v">layout logic from actual device dimensions and density, not fixed dp guesses</span></div>
-        </div>
+        <p class="personal-note">I built this because the default Pixel launcher didn’t offer the customization I wanted. I wanted a launcher I could make my own.</p>
         <div class="tags"><span>Kotlin</span><span>Jetpack Compose</span><span>Custom Layouts</span><span>WindowManager</span><span>Play Billing</span><span>Performance</span></div>
         <div class="card-links">
           <a href="https://github.com/klarkengkoy/NeoGlide-Launcher" target="_blank" rel="noopener">source ↗</a>
@@ -486,9 +491,7 @@
         </div>
         <p class="tagline">AI chat app with real-time audio and structured conversations.</p>
         <div class="card-visual">screenshot / demo gif</div>
-        <div class="prop-list">
-          <div><span class="k">why</span><span class="v">ai orchestration kept separate from ui state; graceful handling of free-tier limits</span></div>
-        </div>
+        <p class="personal-note">I built this so I could keep practicing Japanese conversations at home.</p>
         <div class="tags"><span>Gemini API</span><span>Real-time Audio</span><span>Kotlin Coroutines</span><span>Prompt Engineering</span></div>
         <div class="card-links">
           <a href="https://github.com/klarkengkoy/MoshiMoshi" target="_blank" rel="noopener">source ↗</a>
@@ -502,9 +505,7 @@
         </div>
         <p class="tagline">PokeAPI client focused on networking layers and reactive ui state.</p>
         <div class="card-visual">screenshot / demo gif</div>
-        <div class="prop-list">
-          <div><span class="k">why</span><span class="v">clean networking layer, built on solid fundamentals</span></div>
-        </div>
+        <p class="personal-note">This was my first app after returning to Android development. I’d used PokeAPI while learning Angular, so I came back to something familiar to put my earlier experience into practice and catch up with current Android practices.</p>
         <div class="tags"><span>Retrofit</span><span>Kotlin Coroutines</span><span>MVVM</span><span>Unit Testing</span></div>
         <div class="card-links">
           <a href="https://github.com/klarkengkoy/PocketDex" target="_blank" rel="noopener">source ↗</a>
@@ -525,9 +526,7 @@
           <img src="assets/screenshots/flashcards/landscape_flashcard_front.png" alt="Flashcards tablet layout showing a kanji card" loading="lazy" draggable="false">
           <img src="assets/screenshots/flashcards/landscape_flashcard_back.png" alt="Flashcards tablet layout showing the card meaning" loading="lazy" draggable="false">
         </div>
-        <div class="prop-list">
-          <div><span class="k">why</span><span class="v">local persistence plus state management for learning tools</span></div>
-        </div>
+        <p class="personal-note">I felt awkward reading my big kanji textbook on the bus or train, so I made an app for studying during my commute. Building it myself also lets me load the study data directly instead of manually creating every kanji card in another app.</p>
         <div class="tags"><span>Kotlin</span><span>Room</span><span>Jetpack Compose</span><span>Navigation 3</span><span>Hilt</span><span>MVVM</span><span>Coroutines</span><span>Flow</span><span>Material 3</span><span>Education</span></div>
         <div class="card-links">
           <a href="https://github.com/klarkengkoy/Flashcards" target="_blank" rel="noopener">source ↗</a>
@@ -548,7 +547,7 @@
       <a href="mailto:mr.cgsamson@gmail.com">mr.cgsamson@gmail.com</a>
       <a href="https://github.com/klarkengkoy" target="_blank" rel="noopener">github ↗</a>
       <a href="https://www.linkedin.com/in/clarksamson/" target="_blank" rel="noopener">linkedin ↗</a>
-      <a href="Samson CV 2026.pdf" target="_blank" rel="noopener">CV / Résumé ↗</a>
+      <a href="https://github.com/klarkengkoy/klarkengkoy/raw/refs/heads/main/Samson%20CV%202026.pdf" target="_blank" rel="noopener">CV / Résumé ↗</a>
     </div>
   </div>
 </section>
