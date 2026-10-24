@@ -1,24 +1,125 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const vm = require('node:vm');
+
 const root = path.join(__dirname, '..');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-
-assert(html.includes('Software Developer · Android development focus'));
-assert(html.includes('<p class="tag">July 2021 – March 2023</p>'));
-assert(html.includes('<p class="tag">April 2023 – September 2025</p>'));
-assert.equal((html.match(/<h3>Accenture \/ Google<\/h3>/g) || []).length, 2);
-assert.equal((html.match(/class="personal-note"/g) || []).length, 5);
-assert(html.includes('because they’re proprietary'));
-assert(html.includes('https://github.com/klarkengkoy/klarkengkoy/raw/refs/heads/main/Samson%20CV%202026.pdf'));
-console.log('Career and personal-project content checks passed.');
-
+const images = [...html.matchAll(/<img src="(assets\/screenshots\/[^"]+)"([^>]+)>/g)];
+assert.equal(images.length, 11);
+for (const [, src, attributes] of images) {
+  const file = path.join(root, src);
+  assert(fs.readdirSync(path.dirname(file)).includes(path.basename(file)), src);
+  const png = fs.readFileSync(file);
+  assert.equal(png.readUInt32BE(16), 1290);
+  assert.equal(png.readUInt32BE(20), 2796);
+  assert.match(attributes, /width="1290" height="2796" loading="lazy" alt="[^"]+"/);
+  assert(html.includes(`href="${src}"`), 'Screenshot must open at full size');
+}
+const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
+assert.equal(new Set(ids).size, ids.length, 'IDs must be unique');
 assert(html.indexOf('id="journey"') < html.indexOf('id="skills"'));
 assert(html.indexOf('id="skills"') < html.indexOf('id="work"'));
-assert.equal((html.match(/>Gemini Notebook</g) || []).length, 2);
+for (const name of ['Neo Glide Launcher', 'Flashcards', 'TripTrack', 'MoshiMoshi', 'PocketDex']) {
+  assert(new RegExp(`<h3[^>]*>${name}</h3>`).test(html), name);
+}
+assert(html.includes('https://github.com/klarkengkoy/klarkengkoy/raw/refs/heads/main/Samson%20CV%202026.pdf'));
 assert(html.includes('.companion-strip:hover .companion-track'));
-assert(html.includes('.companion-strip:focus-within .companion-track'));
 assert(html.includes('@media(prefers-reduced-motion:reduce)'));
-assert(html.includes('Skip to content'));
-assert(!html.includes('Space Grotesk'));
-console.log('Layout, navigation and tools presentation checks passed.');
+assert(!html.includes('motion-toggle'));
+assert(html.includes('scrollbar-width:none'));
+assert.equal((html.match(/<ul class="tags"/g) || []).length, 5);
+assert(html.includes('<p class="tag">July 2021 – March 2023</p>'));
+assert(html.includes('<p class="tag">April 2023 – September 2025</p>'));
+assert(html.includes('Google:</strong> Android Enterprise Technical Support Expert'));
+assert(!html.includes('Project details to confirm'));
+assert.equal((html.match(/class="personal-note"/g) || []).length, 5);
+assert(html.includes('left:-24px') && html.includes('right:-24px'));
+assert.equal((html.match(/>Gemini Notebook</g) || []).length, 2);
+assert(!html.includes('formerly NotebookLM'));
+for (const [, article] of html.matchAll(/<article\b[^>]*>([\s\S]*?)<\/article>/g)) {
+  const order = [article.indexOf('<h3'), article.indexOf('class="status"'),
+    article.includes('class="gallery-shell"') ? article.indexOf('class="gallery-shell"') : article.indexOf('[Screenshots to add]'),
+    article.indexOf('class="personal-note"'), article.indexOf('<ul class="tags"'), article.indexOf('Source on GitHub')];
+  assert(order.every((position, index) => position >= 0 && (index === 0 || position > order[index - 1])), 'Project sections must follow the requested order');
+}
+
+const buttons = [-1, 1].map(direction => ({
+  dataset: { direction: String(direction) },
+  addEventListener(event, callback) { this.click = callback; }
+}));
+const gallery = {
+  id: 'test-gallery', scrollLeft: 0, clientWidth: 600, scrollWidth: 1400,
+  querySelector: () => ({ getBoundingClientRect: () => ({ width: 200 }) }),
+  scrollBy({ left }) { this.scrollLeft += left; },
+  listeners: {},
+  addEventListener(event, callback) { this.listeners[event] = callback; },
+  focus() { document.activeElement = this; }
+};
+const nav = {
+  addEventListener() {}, querySelectorAll: () => [],
+  getAttribute: () => 'false', setAttribute() {}, classList: { toggle() {}, remove() {} }
+};
+let contentHeight = 313.5;
+const content = { getBoundingClientRect: () => ({ height: contentHeight }) };
+const hero = { style: {}, querySelector: () => content };
+const resizeObservers = new Map();
+const viewerImage = { removeAttribute(name) { delete this[name]; } };
+const closeButton = { addEventListener(event, callback) { this.click = callback; } };
+const viewer = {
+  open: false, listeners: {},
+  querySelector: selector => selector === 'img' ? viewerImage : closeButton,
+  addEventListener(event, callback) { this.listeners[event] = callback; },
+  showModal() { this.open = true; },
+  close() { this.open = false; this.listeners.close(); }
+};
+const document = {
+  activeElement: null,
+  getElementById: () => nav,
+  querySelector: selector => selector === '.hero' ? hero : selector === '.image-viewer' ? viewer : nav,
+  querySelectorAll: selector => selector === '.app-gallery' ? [gallery] : buttons
+};
+vm.runInNewContext(html.match(/<script>([\s\S]*?)<\/script>/)[1], {
+  document,
+  getComputedStyle: element => element === hero ? { paddingTop: '112px', paddingBottom: '96px' } : { columnGap: '16px' },
+  ResizeObserver: class {
+    constructor(callback) { this.callback = callback; }
+    observe(target) { resizeObservers.set(target, this.callback); this.callback(); }
+  }
+});
+assert.equal(buttons[0].hidden, true);
+assert.equal(buttons[1].hidden, false);
+buttons[1].click();
+assert.equal(gallery.scrollLeft, 216);
+gallery.listeners.scroll();
+assert.equal(buttons[0].hidden, false);
+buttons[0].click();
+assert.equal(gallery.scrollLeft, 0);
+gallery.scrollLeft = 800;
+document.activeElement = buttons[1];
+gallery.listeners.scroll();
+assert.equal(buttons[1].hidden, true);
+assert.equal(document.activeElement, gallery);
+gallery.scrollWidth = gallery.clientWidth;
+gallery.scrollLeft = 0;
+resizeObservers.get(gallery)();
+assert(buttons.every(button => button.hidden));
+gallery.scrollWidth = 1400;
+gallery.listeners.load();
+assert.equal(buttons[1].hidden, false);
+const link = { href: 'https://example.test/screenshot.png', querySelector: () => ({ alt: 'Kanji study deck' }) };
+let prevented = false;
+const imageClick = { target: { closest: () => link }, button: 0, preventDefault() { prevented = true; } };
+gallery.listeners.click(imageClick);
+assert.equal(viewer.open, true);
+assert.equal(viewerImage.src, link.href);
+assert.equal(viewerImage.alt, 'Kanji study deck');
+assert.equal(prevented, true);
+closeButton.click();
+assert.equal(viewer.open, false);
+assert.equal(viewerImage.src, undefined);
+prevented = false;
+gallery.listeners.click({ ...imageClick, ctrlKey: true });
+assert.equal(viewer.open, false);
+assert.equal(prevented, false);
+console.log('Profile checks passed: assets, career entries, notes, galleries, image viewer, focus and grid rows.');

@@ -168,65 +168,38 @@
     }
 
     /* ---------- PROJECTS ---------- */
+    .app-showcase{padding:24px; border:1px solid var(--grid-line); background:var(--ink-800); border-radius:4px;}
+    .app-showcase + .app-showcase{margin-top:32px;}
+    .app-intro h3{font-size:24px;}
+    .app-intro p{max-width:60ch; color:var(--muted); margin:8px 0 24px;}
+    .gallery-shell{position:relative;}
+    .gallery-arrow{position:absolute; top:50%; z-index:1; transform:translateY(-50%); width:48px; height:48px; display:grid; place-items:center; padding:0; border:1px solid var(--muted); border-radius:50%; background:var(--ink-900); color:var(--paper); font-size:32px; line-height:1;}
+    .gallery-arrow[data-direction="-1"]{left:-24px;}
+    .gallery-arrow[data-direction="1"]{right:-24px;}
+    .gallery-arrow svg,.viewer-close svg{width:24px; height:24px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;}
+    .gallery-arrow:hover{border-color:var(--amber); color:var(--amber);}
+    .gallery-arrow[hidden]{display:none;}
+    .app-gallery{display:flex; align-items:flex-start; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none;}
+    .app-gallery::-webkit-scrollbar{display:none;}
+    .app-gallery a{flex:none; width:auto; min-width:0; scroll-snap-align:start;}
+    .app-gallery a:focus-visible{outline-offset:-4px;}
+    .app-gallery img{display:block; width:auto; height:clamp(320px,60vw,400px); border-radius:8px;}
     .personal-note{max-width:64ch; color:var(--muted); border-left:2px solid var(--teal); padding-left:16px; margin:24px 0;}
-
-    .project-grid{display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:22px;}
-    @media (max-width:760px){.project-grid{grid-template-columns:1fr;}}
-
-    .card{
-      border:1px solid var(--grid-line); border-radius:2px;
-      background:var(--ink-800);
-      display:flex; flex-direction:column;
-      transition:border-color .2s ease, transform .2s ease;
-      overflow:hidden;
-    }
-    .card:hover{border-color:var(--amber); transform:translateY(-2px);}
-    .card.flagship{grid-column:1 / -1; border-color:var(--amber);}
-    .card-top{
-      display:flex; justify-content:space-between; align-items:flex-start;
-      padding:20px 22px 0;
-    }
-    .card-top h3{font-size:20px; color:var(--paper);}
-    .status{
-      font-family:var(--font-mono); font-size:10.5px; letter-spacing:.06em;
-      padding:4px 8px; border:1px solid var(--grid-line); color:var(--muted); white-space:nowrap;
-    }
-    .status.live{color:var(--teal); border-color:var(--teal);}
-    .status.flagship{color:var(--amber); border-color:var(--amber);}
-    .tagline{color:var(--muted); padding:8px 22px 0; font-size:14.5px;}
-
-    .card-visual{
-      margin:18px 22px 0; min-height:200px;
-      border:1px dashed var(--grid-line);
-      display:flex; align-items:center; justify-content:center;
-      font-family:var(--font-mono); font-size:11px; color:var(--muted); letter-spacing:.05em; text-transform:uppercase;
-      overflow-x:auto; scroll-snap-type:x mandatory; gap:12px; padding:0 10px;
-      scrollbar-width:none; -ms-overflow-style:none; cursor:grab; user-select:none;
-    }
-    .card-visual:active { cursor: grabbing; }
-    .card-visual::-webkit-scrollbar { display: none; }
-    .card-visual img {
-      height: 95%; width: auto; scroll-snap-align: center;
-      border-radius: 2px; object-fit: contain;
-      flex-shrink: 0; border:1px solid var(--grid-line);
-      pointer-events:none; /* Prevents ghost image dragging */
-    }
-    .card-visual.screenshot-gallery{height:260px; min-height:0; justify-content:flex-start;}
-    .card-visual.screenshot-gallery img{height:100%;}
-
-    .prop-list{padding:18px 22px 0; font-family:var(--font-mono); font-size:13px;}
-    .prop-list div{display:flex; gap:8px; padding:5px 0; border-top:1px dotted var(--grid-line);}
-    .prop-list div:first-child{border-top:none;}
-    .prop-list .k{color:var(--muted); min-width:96px; flex-shrink:0;}
-    .prop-list .v{color:var(--muted);}
-
-    .tags{display:flex; flex-wrap:wrap; gap:6px; padding:16px 22px 0;}
-    .tags span{
-      font-family:var(--font-mono); font-size:11px; color:var(--muted);
-      border:1px solid var(--grid-line); padding:3px 8px; border-radius:999px;
-    }
-
-    .card-links{padding:18px 22px 22px; margin-top:auto; display:flex; gap:16px; font-family:var(--font-mono); font-size:12.5px;}
+    .image-viewer{width:min(1200px,calc(100% - 32px)); max-width:none; max-height:calc(100dvh - 32px); padding:64px 16px 16px; border:1px solid var(--grid-line); border-radius:8px; background:var(--ink-900); color:var(--paper);}
+    .image-viewer::backdrop{background:rgba(0,0,0,.85);}
+    .image-viewer img{display:block; width:100%; height:calc(100dvh - 128px); object-fit:contain;}
+    .viewer-close{position:absolute; right:8px; top:8px; display:grid; place-items:center; width:48px; height:48px; padding:0; border:1px solid var(--muted); border-radius:50%; background:var(--ink-900); color:var(--paper);}
+    .viewer-close:hover{color:var(--amber); border-color:var(--amber);}
+    html:has(.image-viewer[open]){overflow:hidden;}
+    .pending-projects{display:grid; gap:24px; margin-top:32px;}
+    .project-card{padding:24px; background:var(--ink-800); border:1px solid var(--grid-line); border-radius:4px;}
+    .project-card h3{font-size:24px;}
+    .project-card p{color:var(--muted);}
+    .app-intro .status,.project-card .status{display:inline-block; font-size:13px; color:var(--amber); margin:8px 0; padding:4px 8px; border:1px solid var(--grid-line); border-radius:4px;}
+    .tags{display:flex; flex-wrap:wrap; gap:8px; padding:0; margin:16px 0; list-style:none;}
+    .tags li{font:12px var(--font-mono); color:var(--muted); padding:4px 8px; border:1px solid var(--grid-line); border-radius:999px;}
+    @media(min-width:760px){.pending-projects{grid-template-columns:repeat(2,minmax(0,1fr));}}
+    @media(max-width:480px){.app-showcase{padding:16px;}}
 
     /* ---------- CONTACT ---------- */
     .contact-grid{display:flex; gap:40px; flex-wrap:wrap; align-items:flex-end; justify-content:space-between;}
@@ -409,93 +382,90 @@
   </div>
 </section>
 
-<section id="work">
+<section id="work" aria-labelledby="work-title">
   <div class="wrap">
     <div class="section-head">
-      <p class="eyebrow">03 — work</p>
-      <h2>Things I've built</h2>
+      <h2 id="work-title">Things I've built</h2>
       <p>These are recent personal projects. Applications I developed for previous employers aren’t shown here because they’re proprietary.</p>
     </div>
 
-    <div class="project-grid">
+    <article class="app-showcase" aria-labelledby="neoglide-title">
+      <div class="app-intro">
+        <h3 id="neoglide-title">Neo Glide Launcher</h3>
+        <p class="status">personal project</p>
+        <p>An Android home screen with widgets, app categories, search suggestions, and a hidden-app selection screen.</p>
+      </div>
+      <div class="gallery-shell">
+        <button class="gallery-arrow" type="button" data-gallery="neoglide-gallery" data-direction="-1" aria-controls="neoglide-gallery" aria-label="Previous Neo Glide Launcher screenshot" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button>
+        <button class="gallery-arrow" type="button" data-gallery="neoglide-gallery" data-direction="1" aria-controls="neoglide-gallery" aria-label="Next Neo Glide Launcher screenshot" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>
+      <div class="app-gallery" id="neoglide-gallery" role="group" aria-label="Neo Glide Launcher screenshots" tabindex="0">
+        <a href="assets/screenshots/neoglide launcher/showcase/01_make-it-truly-yours_left.png"><img src="assets/screenshots/neoglide launcher/showcase/01_make-it-truly-yours_left.png" width="1290" height="2796" loading="lazy" alt="Neo Glide Launcher opening panel: Make it truly yours, beside the left half of a home screen with calendar widgets."></a>
+        <a href="assets/screenshots/neoglide launcher/showcase/02_make-it-truly-yours_right.png"><img src="assets/screenshots/neoglide launcher/showcase/02_make-it-truly-yours_right.png" width="1290" height="2796" loading="lazy" alt="Continuation of the launcher home screen, showing weather and activity widgets alongside app shortcuts."></a>
+        <a href="assets/screenshots/neoglide launcher/showcase/03_switch-with-glide.png"><img src="assets/screenshots/neoglide launcher/showcase/03_switch-with-glide.png" width="1290" height="2796" loading="lazy" alt="Switch with glide panel showing the Social app category and a bottom row of category icons."></a>
+        <a href="assets/screenshots/neoglide launcher/showcase/04_made-for-your-grip.png"><img src="assets/screenshots/neoglide launcher/showcase/04_made-for-your-grip.png" width="1290" height="2796" loading="lazy" alt="Made for your grip panel showing a Productivity app grid with category icons along the right edge."></a>
+        <a href="assets/screenshots/neoglide launcher/showcase/05_keep-your-apps-close.png"><img src="assets/screenshots/neoglide launcher/showcase/05_keep-your-apps-close.png" width="1290" height="2796" loading="lazy" alt="Keep your apps close panel showing Lifestyle apps arranged toward the bottom of the screen."></a>
+        <a href="assets/screenshots/neoglide launcher/showcase/06_protect-private-apps.png"><img src="assets/screenshots/neoglide launcher/showcase/06_protect-private-apps.png" width="1290" height="2796" loading="lazy" alt="Manage Hidden Apps screen with app selection checkboxes, search, and A to Z and Recent sorting controls."></a>
+        <a href="assets/screenshots/neoglide launcher/showcase/07_search-your-way.png"><img src="assets/screenshots/neoglide launcher/showcase/07_search-your-way.png" width="1290" height="2796" loading="lazy" alt="Search your way panel showing a search field and DuckDuckGo suggestions in English and Japanese."></a>
+      </div>
+      </div>
+      <p class="personal-note">I built this because the default Pixel launcher didn’t offer the customization I wanted. I wanted a launcher I could make my own.</p>
+      <ul class="tags" aria-label="Neo Glide Launcher technology stack">
+        <li>Kotlin</li><li>Jetpack Compose</li><li>Custom Layouts</li><li>WindowManager</li><li>Play Billing</li><li>Performance</li>
+      </ul>
+      <p><a href="https://github.com/klarkengkoy/NeoGlide-Launcher" target="_blank" rel="noopener">Source on GitHub</a></p>
+    </article>
 
-      <article class="card flagship">
-        <div class="card-top">
-          <h3>TripTrack</h3>
-          <span class="status flagship">flagship · in progress</span>
-        </div>
-        <p class="tagline">Offline-first travel journal. Local persistence first, cloud sync after.</p>
-        <div class="card-visual">screenshot / demo gif</div>
+    <article class="app-showcase" aria-labelledby="flashcards-title">
+      <div class="app-intro">
+        <h3 id="flashcards-title">Flashcards</h3>
+        <p class="status">personal project</p>
+        <p>A Japanese kanji study app showing lesson decks, kanji prompts, English meanings, and Japanese readings.</p>
+      </div>
+      <div class="gallery-shell">
+        <button class="gallery-arrow" type="button" data-gallery="flashcards-gallery" data-direction="-1" aria-controls="flashcards-gallery" aria-label="Previous Flashcards screenshot" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button>
+        <button class="gallery-arrow" type="button" data-gallery="flashcards-gallery" data-direction="1" aria-controls="flashcards-gallery" aria-label="Next Flashcards screenshot" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>
+      <div class="app-gallery" id="flashcards-gallery" role="group" aria-label="Flashcards screenshots" tabindex="0">
+        <a href="assets/screenshots/flashcards/showcase/screenshot_1_minimalist_flashcard_app.png"><img src="assets/screenshots/flashcards/showcase/screenshot_1_minimalist_flashcard_app.png" width="1290" height="2796" loading="lazy" alt="Flashcards overview showing a landscape layout with kanji lesson decks beside a card displaying Silver and its Japanese reading."></a>
+        <a href="assets/screenshots/flashcards/showcase/screenshot_2_recall.png"><img src="assets/screenshots/flashcards/showcase/screenshot_2_recall.png" width="1290" height="2796" loading="lazy" alt="Recall panel showing the My Decks list with Basic Kanji Volume 2 lessons and card counts."></a>
+        <a href="assets/screenshots/flashcards/showcase/screenshot_3_focus.png"><img src="assets/screenshots/flashcards/showcase/screenshot_3_focus.png" width="1290" height="2796" loading="lazy" alt="Focus panel showing a kanji prompt for Respect for the Aged Day and the card position, four of forty-three."></a>
+        <a href="assets/screenshots/flashcards/showcase/screenshot_4_reveal.png"><img src="assets/screenshots/flashcards/showcase/screenshot_4_reveal.png" width="1290" height="2796" loading="lazy" alt="Reveal panel showing the English meaning Respect for the Aged Day and the Japanese reading on the reverse of the card."></a>
+      </div>
+      </div>
+      <p class="personal-note">I felt awkward reading my big kanji textbook on the bus or train, so I made an app for studying during my commute. Building it myself also lets me load the study data directly instead of manually creating every kanji card in another app.</p>
+      <ul class="tags" aria-label="Flashcards technology stack">
+        <li>Kotlin</li><li>Room</li><li>Jetpack Compose</li><li>Navigation 3</li><li>Hilt</li><li>MVVM</li><li>Coroutines</li><li>Flow</li><li>Material 3</li><li>Education</li>
+      </ul>
+      <p><a href="https://github.com/klarkengkoy/Flashcards" target="_blank" rel="noopener">Source on GitHub</a></p>
+    </article>
+
+    <div class="pending-projects">
+      <article class="project-card">
+        <h3>TripTrack</h3>
+        <p class="status">personal project · in progress</p>
+        <p>Offline-first travel journal. Local persistence first, cloud sync after.</p>
+        <p>[Screenshots to add]</p>
         <p class="personal-note">I wanted an ambitious project where I could bring together Android development and system design. It’s a way to explore a broader Android stack, though I may not publish it.</p>
-        <div class="tags"><span>Kotlin</span><span>Room</span><span>Firebase Firestore</span><span>Maps SDK</span><span>Media Storage</span><span>Offline-first</span></div>
-        <div class="card-links">
-          <a href="https://github.com/klarkengkoy/Trip-Track" target="_blank" rel="noopener">source ↗</a>
-        </div>
+        <ul class="tags" aria-label="TripTrack technology stack"><li>Kotlin</li><li>Room</li><li>Firebase Firestore</li><li>Maps SDK</li><li>Media Storage</li><li>Offline-first</li></ul>
+        <a href="https://github.com/klarkengkoy/Trip-Track" target="_blank" rel="noopener">Source on GitHub</a>
       </article>
-
-      <article class="card">
-        <div class="card-top">
-          <h3>NeoGlideLauncher</h3>
-          <span class="status">personal project</span>
-        </div>
-        <p class="tagline">Customizable home screen driven by real device layouts.</p>
-        <div class="card-visual">screenshot / demo gif</div>
-        <p class="personal-note">I built this because the default Pixel launcher didn’t offer the customization I wanted. I wanted a launcher I could make my own.</p>
-        <div class="tags"><span>Kotlin</span><span>Jetpack Compose</span><span>Custom Layouts</span><span>WindowManager</span><span>Play Billing</span><span>Performance</span></div>
-        <div class="card-links">
-          <a href="https://github.com/klarkengkoy/NeoGlide-Launcher" target="_blank" rel="noopener">source ↗</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-top">
-          <h3>MoshiMoshi</h3>
-          <span class="status">personal project</span>
-        </div>
-        <p class="tagline">AI chat app with real-time audio and structured conversations.</p>
-        <div class="card-visual">screenshot / demo gif</div>
+      <article class="project-card">
+        <h3>MoshiMoshi</h3>
+        <p class="status">personal project</p>
+        <p>AI chat app with real-time audio and structured conversations.</p>
+        <p>[Screenshots to add]</p>
         <p class="personal-note">I built this so I could keep practicing Japanese conversations at home.</p>
-        <div class="tags"><span>Gemini API</span><span>Real-time Audio</span><span>Kotlin Coroutines</span><span>Prompt Engineering</span></div>
-        <div class="card-links">
-          <a href="https://github.com/klarkengkoy/MoshiMoshi" target="_blank" rel="noopener">source ↗</a>
-        </div>
+        <ul class="tags" aria-label="MoshiMoshi technology stack"><li>Gemini API</li><li>Real-time Audio</li><li>Kotlin Coroutines</li><li>Prompt Engineering</li></ul>
+        <a href="https://github.com/klarkengkoy/MoshiMoshi" target="_blank" rel="noopener">Source on GitHub</a>
       </article>
-
-      <article class="card">
-        <div class="card-top">
-          <h3>PocketDex</h3>
-          <span class="status">personal project</span>
-        </div>
-        <p class="tagline">PokeAPI client focused on networking layers and reactive ui state.</p>
-        <div class="card-visual">screenshot / demo gif</div>
+      <article class="project-card">
+        <h3>PocketDex</h3>
+        <p class="status">personal project</p>
+        <p>PokeAPI client focused on networking layers and reactive ui state.</p>
+        <p>[Screenshots to add]</p>
         <p class="personal-note">This was my first app after returning to Android development. I’d used PokeAPI while learning Angular, so I came back to something familiar to put my earlier experience into practice and catch up with current Android practices.</p>
-        <div class="tags"><span>Retrofit</span><span>Kotlin Coroutines</span><span>MVVM</span><span>Unit Testing</span></div>
-        <div class="card-links">
-          <a href="https://github.com/klarkengkoy/PocketDex" target="_blank" rel="noopener">source ↗</a>
-        </div>
+        <ul class="tags" aria-label="PocketDex technology stack"><li>Retrofit</li><li>Kotlin Coroutines</li><li>MVVM</li><li>Unit Testing</li></ul>
+        <a href="https://github.com/klarkengkoy/PocketDex" target="_blank" rel="noopener">Source on GitHub</a>
       </article>
-
-      <article class="card">
-        <div class="card-top">
-          <h3>Flashcards</h3>
-          <span class="status">personal project</span>
-        </div>
-        <p class="tagline">Personal study tool for custom cards and focused learning.</p>
-        <div class="card-visual screenshot-gallery" role="group" aria-label="Flashcards app screenshots">
-          <img src="assets/screenshots/flashcards/deck_list_portrait.png" alt="Flashcards deck list showing Japanese kanji study decks" loading="lazy" draggable="false">
-          <img src="assets/screenshots/flashcards/flashcard_front_portrait.png" alt="Flashcard showing the kanji for Respect for the Aged Day" loading="lazy" draggable="false">
-          <img src="assets/screenshots/flashcards/flashcard_back_portrait.png" alt="Flashcard showing the English meaning and Japanese reading" loading="lazy" draggable="false">
-          <img src="assets/screenshots/flashcards/landscape_empty_state.png" alt="Flashcards tablet layout with no deck selected" loading="lazy" draggable="false">
-          <img src="assets/screenshots/flashcards/landscape_flashcard_front.png" alt="Flashcards tablet layout showing a kanji card" loading="lazy" draggable="false">
-          <img src="assets/screenshots/flashcards/landscape_flashcard_back.png" alt="Flashcards tablet layout showing the card meaning" loading="lazy" draggable="false">
-        </div>
-        <p class="personal-note">I felt awkward reading my big kanji textbook on the bus or train, so I made an app for studying during my commute. Building it myself also lets me load the study data directly instead of manually creating every kanji card in another app.</p>
-        <div class="tags"><span>Kotlin</span><span>Room</span><span>Jetpack Compose</span><span>Navigation 3</span><span>Hilt</span><span>MVVM</span><span>Coroutines</span><span>Flow</span><span>Material 3</span><span>Education</span></div>
-        <div class="card-links">
-          <a href="https://github.com/klarkengkoy/Flashcards" target="_blank" rel="noopener">source ↗</a>
-        </div>
-      </article>
-
     </div>
   </div>
 </section>
@@ -521,6 +491,11 @@
   </div>
 </footer>
 
+<dialog class="image-viewer" aria-label="Full-size app screenshot">
+  <button class="viewer-close" type="button" aria-label="Close screenshot" autofocus><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12m0-12L6 18"/></svg></button>
+  <img alt="">
+</dialog>
+
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -536,38 +511,35 @@
     mobileNav.classList.remove('is-open');
   }));
 
-  // --- Click and Drag to Scroll Logic ---
-  const carousels = document.querySelectorAll('.card-visual');
-  carousels.forEach(slider => {
-    let isDown = false;
-    let startX;
-    let scrollLeft;
+  const viewer = document.querySelector('.image-viewer');
+  const viewerImage = viewer.querySelector('img');
+  viewer.querySelector('.viewer-close').addEventListener('click', () => viewer.close());
+  viewer.addEventListener('close', () => viewerImage.removeAttribute('src'));
 
-    slider.addEventListener('mousedown', (e) => {
-      isDown = true;
-      slider.classList.add('active');
-      startX = e.pageX - slider.offsetLeft;
-      scrollLeft = slider.scrollLeft;
-      slider.style.scrollSnapType = 'none'; // Disable snapping while dragging
+  document.querySelectorAll('.app-gallery').forEach(gallery => {
+    gallery.addEventListener('click', event => {
+      const link = event.target.closest('a');
+      if (!link || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      viewerImage.src = link.href;
+      viewerImage.alt = link.querySelector('img').alt;
+      viewer.showModal();
     });
-
-    slider.addEventListener('mouseleave', () => {
-      isDown = false;
-      slider.style.scrollSnapType = 'x mandatory';
+    const buttons = document.querySelectorAll(`[data-gallery="${gallery.id}"]`);
+    const updateControls = () => buttons.forEach(button => {
+      button.hidden = Number(button.dataset.direction) < 0
+        ? gallery.scrollLeft <= 1
+        : gallery.scrollLeft >= gallery.scrollWidth - gallery.clientWidth - 1;
+      if (button.hidden && document.activeElement === button) gallery.focus({ preventScroll: true });
     });
-
-    slider.addEventListener('mouseup', () => {
-      isDown = false;
-      slider.style.scrollSnapType = 'x mandatory';
-    });
-
-    slider.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - slider.offsetLeft;
-      const walk = (x - startX) * 2; // Scroll speed multiplier
-      slider.scrollLeft = scrollLeft - walk;
-    });
+    buttons.forEach(button => button.addEventListener('click', () => {
+      const step = gallery.querySelector('a').getBoundingClientRect().width + parseFloat(getComputedStyle(gallery).columnGap);
+      gallery.scrollBy({ left: Number(button.dataset.direction) * step, behavior: 'instant' });
+    }));
+    gallery.addEventListener('scroll', updateControls, { passive: true });
+    gallery.addEventListener('load', updateControls, true);
+    new ResizeObserver(updateControls).observe(gallery);
+    updateControls();
   });
 </script>
 
