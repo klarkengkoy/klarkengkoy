@@ -172,7 +172,7 @@
     .app-showcase + .app-showcase{margin-top:32px;}
     .app-intro h3{font-size:24px;}
     .app-intro p{max-width:60ch; color:var(--muted); margin:8px 0 24px;}
-    .gallery-shell{position:relative;}
+    .gallery-shell{position:relative; max-width:100%; margin-inline:auto;}
     .gallery-arrow{position:absolute; top:50%; z-index:1; transform:translateY(-50%); width:48px; height:48px; display:grid; place-items:center; padding:0; border:1px solid var(--muted); border-radius:50%; background:var(--ink-900); color:var(--paper); font-size:32px; line-height:1;}
     .gallery-arrow[data-direction="-1"]{left:-24px;}
     .gallery-arrow[data-direction="1"]{right:-24px;}
@@ -539,14 +539,27 @@
         : gallery.scrollLeft >= gallery.scrollWidth - gallery.clientWidth - 1;
       if (button.hidden && document.activeElement === button) gallery.focus({ preventScroll: true });
     });
+    const fitGallery = () => {
+      const shell = gallery.parentElement;
+      const card = shell.parentElement;
+      const style = getComputedStyle(card);
+      const gap = parseFloat(getComputedStyle(gallery).columnGap);
+      const width = gallery.querySelector('a').getBoundingClientRect().width;
+      const available = card.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+      const count = Math.min(gallery.children.length, Math.max(1, Math.floor((available + gap) / (width + gap))));
+      const index = Math.round(gallery.scrollLeft / (width + gap));
+      shell.style.width = `${count * (width + gap) - gap}px`;
+      gallery.scrollLeft = index * (width + gap);
+      updateControls();
+    };
     buttons.forEach(button => button.addEventListener('click', () => {
       const step = gallery.querySelector('a').getBoundingClientRect().width + parseFloat(getComputedStyle(gallery).columnGap);
       gallery.scrollBy({ left: Number(button.dataset.direction) * step, behavior: 'instant' });
     }));
     gallery.addEventListener('scroll', updateControls, { passive: true });
-    gallery.addEventListener('load', updateControls, true);
-    new ResizeObserver(updateControls).observe(gallery);
-    updateControls();
+    gallery.addEventListener('load', fitGallery, true);
+    new ResizeObserver(fitGallery).observe(gallery.parentElement.parentElement);
+    fitGallery();
   });
 </script>
 
