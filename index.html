@@ -8,30 +8,26 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
       --ink-900:#0b1220;
       --ink-800:#0f1830;
-      --ink-700:#16223c;
-      --ink-600:#1d2c4a;
-      --grid-line:#1e2c46;
+      --grid-line:#293952;
       --paper:#e9e6da;
-      --muted:#93a0b8;
-      --muted-dim:#5f6d87;
+      --muted:#a4b0c5;
       --amber:#e8a33d;
-      --amber-dim:#b9832f;
       --teal:#5fc3b8;
-      --radius:2px;
-      --font-display:'Space Grotesk', sans-serif;
+      --font-display:'IBM Plex Sans', sans-serif;
       --font-body:'IBM Plex Sans', sans-serif;
       --font-mono:'IBM Plex Mono', monospace;
       --maxw:1080px;
+      --space:8px;
     }
 
     *,*::before,*::after{box-sizing:border-box;}
-    html{scroll-behavior:smooth;}
+    html{scroll-behavior:smooth; scroll-padding-top:96px;}
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto;}
       *,*::before,*::after{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
@@ -40,6 +36,7 @@
     body{
       margin:0;
       background:var(--ink-900);
+      border-bottom:1px solid var(--grid-line);
       color:var(--paper);
       font-family:var(--font-body);
       font-size:16px;
@@ -49,39 +46,30 @@
 
     a{color:var(--amber); text-decoration:none;}
     a:hover{text-decoration:underline;}
-    a:focus-visible, button:focus-visible{outline:2px solid var(--amber); outline-offset:3px;}
+    :focus-visible{outline:3px solid var(--amber); outline-offset:4px;}
+    button{font:inherit; cursor:pointer;}
+    .skip-link{position:absolute; top:8px; left:16px; z-index:100; padding:8px 16px; background:var(--paper); color:var(--ink-900); transform:translateY(-200%);}
+    .skip-link:focus{transform:none;}
 
-    .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:0 calc(var(--space) * 3);}
 
-    .mono{font-family:var(--font-mono);}
-    .eyebrow{
-      font-family:var(--font-mono);
-      font-size:12.5px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color:var(--amber);
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin-bottom:18px;
-    }
+    .eyebrow{font-size:16px; color:var(--muted); margin:0 0 24px;}
     h1,h2,h3{font-family:var(--font-display); font-weight:600; margin:0; letter-spacing:-.01em;}
 
     /* ---------- NAV ---------- */
     header.site-nav{
       position:sticky; top:0; z-index:50;
-      background:rgba(11,18,32,.86);
-      backdrop-filter:blur(8px);
-      border-bottom:1px solid var(--grid-line);
+      background:var(--ink-900);
     }
     .nav-inner{
-      max-width:var(--maxw); margin:0 auto; padding:16px 28px;
-      display:flex; align-items:center; justify-content:space-between;
+      max-width:var(--maxw); margin:0 auto; padding:16px 24px;
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
     }
-    .brand{font-family:var(--font-mono); font-size:14px; color:var(--paper);}
-    .brand b{color:var(--amber); font-weight:600;}
-    .brand small{display:block; color:var(--muted-dim); font-size:11px; letter-spacing:.06em;}
-    nav.links{display:flex; gap:26px; font-family:var(--font-mono); font-size:13px;}
+    .brand{font:13px var(--font-mono); color:var(--paper);}
+    .brand b{font-weight:500; color:var(--amber);}
+    .brand small{display:block; color:var(--muted); font-size:12px;}
+    nav.links{display:flex; gap:24px; font:13px var(--font-mono);}
+    nav.links a{padding:8px 0;}
     nav.links a{color:var(--muted);}
     nav.links a:hover{color:var(--amber);}
     .nav-toggle{display:none;}
@@ -89,88 +77,57 @@
 
     /* ---------- HERO ---------- */
     .hero{
-      position:relative;
-      padding:120px 0 96px;
-      overflow:hidden;
-      background-image:
-        linear-gradient(var(--grid-line) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      padding:80px 0 96px;
+      background-image:linear-gradient(var(--grid-line) 1px, transparent 1px),linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
       background-size:40px 40px;
-      background-position:center top;
     }
-    .hero-content{position:relative;}
     .hero h1{
-      font-size:clamp(34px, 5.4vw, 58px);
-      line-height:1.08;
+      font-size:clamp(32px, 5.4vw, 58px);
+      line-height:1.1;
       max-width:30ch;
       letter-spacing:-.02em;
     }
     .hero p.lede{
-      max-width:56ch; color:var(--muted); font-size:17px; margin-top:22px;
+      max-width:52ch; color:var(--muted); font-size:18px; margin:24px 0 0;
     }
-    .hero-cta{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap;}
+    .hero-cta{display:flex; gap:16px; margin-top:32px; flex-wrap:wrap;}
     .btn{
-      font-family:var(--font-mono); font-size:13px; letter-spacing:.03em;
-      padding:12px 20px; border-radius:var(--radius);
+      font-size:16px;
+      padding:8px 16px; min-height:48px; border-radius:4px;
       display:inline-flex; align-items:center; gap:8px;
       border:1px solid var(--grid-line);
     }
     .btn-primary{background:var(--amber); color:var(--ink-900); border-color:var(--amber); font-weight:600;}
-    .btn-primary:hover{background:#f0b458; text-decoration:none;}
+    .btn-primary:hover{background:var(--paper); border-color:var(--paper); text-decoration:none;}
     .btn-ghost{color:var(--paper);}
     .btn-ghost:hover{border-color:var(--amber); color:var(--amber); text-decoration:none;}
 
-    /* dimension-line stat annotations */
-    .specs{
-      display:flex; gap:0; margin-top:64px; flex-wrap:wrap;
-    }
-    .spec{
-      flex:1; min-width:160px; padding:18px 22px 0; position:relative;
-    }
-    .spec:last-child{border-right:none;}
-    .spec .dim-line{
-      position:absolute; top:0; left:22px; right:22px; height:6px;
-    }
-    .spec .dim-line::before, .spec .dim-line::after{
-      content:"|"; position:absolute; top:-8px; color:var(--muted-dim); font-family:var(--font-mono); font-size:11px;
-    }
-    .spec .dim-line::before{left:0;}
-    .spec .dim-line::after{right:0;}
-    .spec .num{font-family:var(--font-mono); color:var(--amber); font-size:22px; font-weight:600;}
-    .spec .label{color:var(--muted); font-size:13px; margin-top:4px;}
-
-    .titleblock{
-      position:absolute; right:0; bottom:-70px;
-      font-family:var(--font-mono); font-size:11px; color:var(--muted-dim);
-      text-align:right; letter-spacing:.05em; text-transform:uppercase;
-    }
-
     /* ---------- RELATED TECH STRIP ---------- */
-    .tech-strip-caption{font-family:var(--font-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted-dim); text-align:center; margin:0 0 18px;}
-    .tech-item{display:inline-flex; align-items:center; gap:9px; white-space:nowrap; font-family:var(--font-mono); font-size:12px; color:var(--muted);}
+    .tech-strip-caption{font-size:14px; color:var(--muted); margin:0 0 24px; text-align:center;}
+    .tech-item{display:inline-flex; align-items:center; gap:8px; white-space:nowrap; font:12px var(--font-mono); color:var(--muted);}
     .tech-logo{width:22px; height:22px; object-fit:contain; flex:none; filter:brightness(0) invert(.88);}
     .tech-item > svg.tech-logo{fill:currentColor;}
-    .companion-strip{margin-top:30px; padding:20px 0; border-block:1px solid var(--grid-line); background:var(--ink-800); overflow:hidden;}
+    .companion-strip{margin-top:32px; padding:24px 16px; border-block:1px solid var(--grid-line); background:var(--ink-800); overflow:hidden;}
     .companion-track{display:flex; width:max-content; animation:tech-scroll 60s linear infinite;}
-    .companion-strip:hover .companion-track{animation-play-state:paused;}
+    .companion-strip:hover .companion-track,.companion-strip:focus-within .companion-track{animation-play-state:paused;}
     .companion-group{display:flex; align-items:center; gap:48px; padding-right:48px;}
-    .tech-item{font-size:11px; letter-spacing:.08em; text-transform:uppercase;}
     @keyframes tech-scroll{to{transform:translateX(-50%);}}
-    @media (prefers-reduced-motion: reduce){.companion-track{animation:none;}}
+    @media(prefers-reduced-motion:reduce){
+      .companion-track{animation:none; width:auto;}
+      .companion-group{flex-wrap:wrap; gap:24px; padding:0;}
+      .companion-group[aria-hidden="true"]{display:none;}
+    }
 
     /* ---------- SECTION SHELL ---------- */
-    section{padding:96px 0;}
+    section{padding:64px 0;}
     section + section{border-top:1px solid var(--grid-line);}
-    .section-head{margin-bottom:48px; max-width:60ch;}
-    .section-head h2{font-size:clamp(24px,3.2vw,32px);}
+    .section-head{margin-bottom:32px; max-width:60ch;}
+    .section-head h2{font-size:clamp(28px,3.2vw,36px);}
     .section-head p{color:var(--muted); margin-top:12px;}
-
-    .reveal{opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease;}
-    .reveal.is-visible{opacity:1; transform:none;}
 
     /* ---------- JOURNEY ---------- */
     .timeline{position:relative; padding-left:30px; border-left:1px solid var(--grid-line);}
-    .tl-item{position:relative; padding-bottom:44px;}
+    .tl-item{position:relative; padding-bottom:32px;}
     .tl-item:last-child{padding-bottom:0;}
     .tl-item::before{
       content:""; position:absolute; left:-35px; top:4px;
@@ -178,50 +135,52 @@
       background:var(--ink-900); border:2px solid var(--amber);
     }
     .tl-item .tag{
-      font-family:var(--font-mono); font-size:12px; color:var(--amber);
-      letter-spacing:.06em; text-transform:uppercase;
+      font:12px var(--font-mono); color:var(--amber);
     }
-    .tl-item h3{font-size:19px; margin-top:8px; color:var(--paper);}
-    .tl-item p{color:var(--muted); margin-top:8px; max-width:64ch; font-size:15px;}
+    .tl-item h3{font-size:24px; margin-top:8px; color:var(--paper);}
+    .tl-item p{color:var(--muted); margin:8px 0 0; max-width:64ch; font-size:16px;}
+    @media(min-width:900px){
+      .hero{padding:112px 0 96px;}
+      section{padding:80px 0;}
+    }
 
     /* ---------- SKILLS / inspector ---------- */
     .inspector{
-      border:1px solid var(--grid-line); border-radius:var(--radius); overflow:hidden;
+      border:1px solid var(--grid-line); border-radius:2px; overflow:hidden;
     }
     .stack-heading{font-size:18px; margin:32px 0 14px; color:var(--paper);}
     .stack-heading:first-of-type{margin-top:0;}
     .attr-row{
       display:grid; grid-template-columns:220px 1fr;
       border-bottom:1px solid var(--grid-line);
-      font-family:var(--font-mono); font-size:14px;
+      font:14px var(--font-mono);
     }
     .attr-row:last-child{border-bottom:none;}
     .attr-key{
-      padding:16px 18px; background:var(--ink-800); color:var(--teal);
+      padding:16px; color:var(--teal); background:var(--ink-800);
       display:flex; align-items:center;
     }
-    .attr-val{padding:16px 18px; color:var(--paper); display:flex; align-items:center;}
-    .attr-val .quote{color:var(--muted-dim);}
+    .attr-val{padding:16px; color:var(--paper); display:flex; align-items:center; min-width:0; overflow-wrap:anywhere;}
     .attr-val .value{color:var(--amber);}
     @media (max-width:640px){
       .attr-row{grid-template-columns:1fr;}
-      .attr-key{border-bottom:1px solid var(--grid-line);}
+      .attr-key{padding-bottom:0;}
     }
 
+    /* ---------- PROJECTS ---------- */
     .personal-note{max-width:64ch; color:var(--muted); border-left:2px solid var(--teal); padding-left:16px; margin:24px 0;}
 
-    /* ---------- PROJECTS ---------- */
     .project-grid{display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:22px;}
     @media (max-width:760px){.project-grid{grid-template-columns:1fr;}}
 
     .card{
-      border:1px solid var(--grid-line); border-radius:var(--radius);
+      border:1px solid var(--grid-line); border-radius:2px;
       background:var(--ink-800);
       display:flex; flex-direction:column;
       transition:border-color .2s ease, transform .2s ease;
       overflow:hidden;
     }
-    .card:hover{border-color:var(--amber-dim); transform:translateY(-2px);}
+    .card:hover{border-color:var(--amber); transform:translateY(-2px);}
     .card.flagship{grid-column:1 / -1; border-color:var(--amber);}
     .card-top{
       display:flex; justify-content:space-between; align-items:flex-start;
@@ -240,7 +199,7 @@
       margin:18px 22px 0; min-height:200px;
       border:1px dashed var(--grid-line);
       display:flex; align-items:center; justify-content:center;
-      font-family:var(--font-mono); font-size:11px; color:var(--muted-dim); letter-spacing:.05em; text-transform:uppercase;
+      font-family:var(--font-mono); font-size:11px; color:var(--muted); letter-spacing:.05em; text-transform:uppercase;
       overflow-x:auto; scroll-snap-type:x mandatory; gap:12px; padding:0 10px;
       scrollbar-width:none; -ms-overflow-style:none; cursor:grab; user-select:none;
     }
@@ -248,7 +207,7 @@
     .card-visual::-webkit-scrollbar { display: none; }
     .card-visual img {
       height: 95%; width: auto; scroll-snap-align: center;
-      border-radius: var(--radius); object-fit: contain;
+      border-radius: 2px; object-fit: contain;
       flex-shrink: 0; border:1px solid var(--grid-line);
       pointer-events:none; /* Prevents ghost image dragging */
     }
@@ -258,7 +217,7 @@
     .prop-list{padding:18px 22px 0; font-family:var(--font-mono); font-size:13px;}
     .prop-list div{display:flex; gap:8px; padding:5px 0; border-top:1px dotted var(--grid-line);}
     .prop-list div:first-child{border-top:none;}
-    .prop-list .k{color:var(--muted-dim); min-width:96px; flex-shrink:0;}
+    .prop-list .k{color:var(--muted); min-width:96px; flex-shrink:0;}
     .prop-list .v{color:var(--muted);}
 
     .tags{display:flex; flex-wrap:wrap; gap:6px; padding:16px 22px 0;}
@@ -271,24 +230,26 @@
 
     /* ---------- CONTACT ---------- */
     .contact-grid{display:flex; gap:40px; flex-wrap:wrap; align-items:flex-end; justify-content:space-between;}
-    .contact-links{display:flex; gap:24px; flex-wrap:wrap; font-family:var(--font-mono); font-size:14px;}
+    #contact{background:var(--ink-800);}
+    .contact-grid h2{font-size:40px;}
+    .contact-links{display:flex; gap:16px 24px; flex-wrap:wrap; font-size:16px; overflow-wrap:anywhere;}
+    .contact-links a{padding:8px 0;}
 
     footer{padding:40px 0; border-top:1px solid var(--grid-line);}
     footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
-      font-family:var(--font-mono); font-size:12px; color:var(--muted-dim);}
+      font-size:14px; color:var(--muted);}
 
-    @media (max-width:640px){
+    @media (max-width:800px){
       nav.links{display:none;}
-      .nav-toggle{display:inline-flex; align-items:center; justify-content:center; min-width:44px; min-height:44px; border:1px solid var(--grid-line); background:transparent; color:var(--paper); font:12px var(--font-mono);}
-      .mobile-nav{display:none; padding:4px 28px 16px; gap:8px; flex-wrap:wrap;}
+      .nav-toggle{display:inline-flex; align-items:center; justify-content:center; min-width:48px; min-height:48px; border:1px solid var(--grid-line); border-radius:4px; background:transparent; color:var(--paper);}
+      .mobile-nav{display:none; padding:8px 24px 16px; gap:8px; flex-wrap:wrap;}
       .mobile-nav.is-open{display:flex;}
-      .mobile-nav a{font:12px var(--font-mono); color:var(--muted); padding:8px 10px; border:1px solid var(--grid-line);}
-      .hero h1{max-width:19ch;}
-      .titleblock{position:static; margin-top:24px; text-align:left;}
+      .mobile-nav a{color:var(--paper); padding:8px; min-height:48px;}
     }
   </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site-nav">
   <div class="nav-inner">
@@ -307,7 +268,8 @@
   </nav>
 </header>
 
-<section class="hero">
+<main id="main">
+<section class="hero" aria-label="Introduction">
   <div class="wrap hero-content">
     <p class="eyebrow">android engineer · tokyo, japan</p>
     <h1>Built Android apps.<br>Supported Android Enterprise.<br>Now back to building.</h1>
@@ -357,13 +319,12 @@
 
 <section id="skills">
   <div class="wrap">
-    <div class="section-head reveal">
-      <p class="eyebrow">02 — skills</p>
+    <div class="section-head">
       <h2>Skills</h2>
     </div>
 
     <h3 class="stack-heading">Modern Android development stack</h3>
-    <div class="inspector reveal">
+    <div class="inspector">
       <div class="attr-row">
         <div class="attr-key">language</div>
         <div class="attr-val"><span class="value">kotlin</span></div>
@@ -391,7 +352,7 @@
     </div>
 
     <h3 class="stack-heading">Android Enterprise</h3>
-    <div class="inspector reveal">
+    <div class="inspector">
       <div class="attr-row">
         <div class="attr-key">management APIs</div>
         <div class="attr-val"><span class="value">android management api · google play emm api · zero-touch api · devicepolicy manager</span></div>
@@ -402,44 +363,46 @@
       </div>
     </div>
 
-    <div class="companion-strip" role="group" aria-label="Related technologies">
-      <p class="tech-strip-caption">other tools and platforms I use or have worked with</p>
-      <div class="companion-track">
+    <div class="companion-strip" role="group" aria-label="Other tools I’ve worked with. Focus or hover to pause animation." tabindex="0">
+      <p class="tech-strip-caption">Other tools I’ve worked with</p>
+      <div class="companion-track" id="tools-track">
         <div class="companion-group">
-          <span class="tech-item"><img class="tech-logo" src="https://commons.wikimedia.org/wiki/Special:Redirect/file/OpenAI_logo_2025_(symbol).svg" alt="">OpenAI</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/anthropic" alt="">Anthropic</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/googlegemini" alt="">Google Gemini</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/githubcopilot" alt="">GitHub Copilot</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/github" alt="">GitHub</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/gitlab" alt="">GitLab</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt="">Visual Studio Code</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/angular" alt="">Angular</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/postman" alt="">Postman</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/google" alt="">Google Stitch</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/google" alt="">Google Flow</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/google" alt="">Google Workspace</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/opencode" alt="">OpenCode</span>
+          <span class="tech-item"><img class="tech-logo" src="https://commons.wikimedia.org/wiki/Special:Redirect/file/OpenAI_logo_2025_(symbol).svg" width="22" height="22" loading="lazy" alt="">OpenAI</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/anthropic" width="22" height="22" loading="lazy" alt="">Anthropic</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/googlegemini" width="22" height="22" loading="lazy" alt="">Google Gemini</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/googlegemini" width="22" height="22" loading="lazy" alt="">Gemini Notebook</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/githubcopilot" width="22" height="22" loading="lazy" alt="">GitHub Copilot</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/github" width="22" height="22" loading="lazy" alt="">GitHub</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/gitlab" width="22" height="22" loading="lazy" alt="">GitLab</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" width="22" height="22" loading="lazy" alt="">Visual Studio Code</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/angular" width="22" height="22" loading="lazy" alt="">Angular</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/postman" width="22" height="22" loading="lazy" alt="">Postman</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/google" width="22" height="22" loading="lazy" alt="">Google Stitch</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/google" width="22" height="22" loading="lazy" alt="">Google Flow</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/google" width="22" height="22" loading="lazy" alt="">Google Workspace</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/opencode" width="22" height="22" loading="lazy" alt="">OpenCode</span>
           <span class="tech-item"><svg class="tech-logo" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="12" cy="18" r="2"/><path d="m7 6 10-1M6 8l5 8m7-9-5 9" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>Graphify</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/obsidian" alt="">Obsidian</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/n8n" alt="">n8n</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/obsidian" width="22" height="22" loading="lazy" alt="">Obsidian</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/n8n" width="22" height="22" loading="lazy" alt="">n8n</span>
         </div>
         <div class="companion-group" aria-hidden="true">
-          <span class="tech-item"><img class="tech-logo" src="https://commons.wikimedia.org/wiki/Special:Redirect/file/OpenAI_logo_2025_(symbol).svg" alt="">OpenAI</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/anthropic" alt="">Anthropic</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/googlegemini" alt="">Google Gemini</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/githubcopilot" alt="">GitHub Copilot</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/github" alt="">GitHub</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/gitlab" alt="">GitLab</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt="">Visual Studio Code</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/angular" alt="">Angular</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/postman" alt="">Postman</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/google" alt="">Google Stitch</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/google" alt="">Google Flow</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/google" alt="">Google Workspace</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/opencode" alt="">OpenCode</span>
+          <span class="tech-item"><img class="tech-logo" src="https://commons.wikimedia.org/wiki/Special:Redirect/file/OpenAI_logo_2025_(symbol).svg" width="22" height="22" loading="lazy" alt="">OpenAI</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/anthropic" width="22" height="22" loading="lazy" alt="">Anthropic</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/googlegemini" width="22" height="22" loading="lazy" alt="">Google Gemini</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/googlegemini" width="22" height="22" loading="lazy" alt="">Gemini Notebook</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/githubcopilot" width="22" height="22" loading="lazy" alt="">GitHub Copilot</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/github" width="22" height="22" loading="lazy" alt="">GitHub</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/gitlab" width="22" height="22" loading="lazy" alt="">GitLab</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" width="22" height="22" loading="lazy" alt="">Visual Studio Code</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/angular" width="22" height="22" loading="lazy" alt="">Angular</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/postman" width="22" height="22" loading="lazy" alt="">Postman</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/google" width="22" height="22" loading="lazy" alt="">Google Stitch</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/google" width="22" height="22" loading="lazy" alt="">Google Flow</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/google" width="22" height="22" loading="lazy" alt="">Google Workspace</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/opencode" width="22" height="22" loading="lazy" alt="">OpenCode</span>
           <span class="tech-item"><svg class="tech-logo" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="12" cy="18" r="2"/><path d="m7 6 10-1M6 8l5 8m7-9-5 9" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>Graphify</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/obsidian" alt="">Obsidian</span>
-          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/n8n" alt="">n8n</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/obsidian" width="22" height="22" loading="lazy" alt="">Obsidian</span>
+          <span class="tech-item"><img class="tech-logo" src="https://cdn.simpleicons.org/n8n" width="22" height="22" loading="lazy" alt="">n8n</span>
         </div>
       </div>
     </div>
@@ -448,7 +411,7 @@
 
 <section id="work">
   <div class="wrap">
-    <div class="section-head reveal">
+    <div class="section-head">
       <p class="eyebrow">03 — work</p>
       <h2>Things I've built</h2>
       <p>These are recent personal projects. Applications I developed for previous employers aren’t shown here because they’re proprietary.</p>
@@ -456,7 +419,7 @@
 
     <div class="project-grid">
 
-      <article class="card flagship reveal">
+      <article class="card flagship">
         <div class="card-top">
           <h3>TripTrack</h3>
           <span class="status flagship">flagship · in progress</span>
@@ -470,7 +433,7 @@
         </div>
       </article>
 
-      <article class="card reveal">
+      <article class="card">
         <div class="card-top">
           <h3>NeoGlideLauncher</h3>
           <span class="status">personal project</span>
@@ -484,7 +447,7 @@
         </div>
       </article>
 
-      <article class="card reveal">
+      <article class="card">
         <div class="card-top">
           <h3>MoshiMoshi</h3>
           <span class="status">personal project</span>
@@ -498,7 +461,7 @@
         </div>
       </article>
 
-      <article class="card reveal">
+      <article class="card">
         <div class="card-top">
           <h3>PocketDex</h3>
           <span class="status">personal project</span>
@@ -512,7 +475,7 @@
         </div>
       </article>
 
-      <article class="card reveal">
+      <article class="card">
         <div class="card-top">
           <h3>Flashcards</h3>
           <span class="status">personal project</span>
@@ -538,9 +501,8 @@
 </section>
 
 <section id="contact">
-  <div class="wrap contact-grid reveal">
+  <div class="wrap contact-grid">
     <div>
-      <p class="eyebrow">04 — contact</p>
       <h2>Get in touch.</h2>
     </div>
     <div class="contact-links">
@@ -552,6 +514,7 @@
   </div>
 </section>
 
+</main>
 <footer>
   <div class="wrap">
     <span>© <span id="year"></span> Clark Gabriel E. Samson</span>
@@ -572,21 +535,6 @@
     navToggle.setAttribute('aria-expanded', 'false');
     mobileNav.classList.remove('is-open');
   }));
-
-  const revealEls = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-    revealEls.forEach(el => io.observe(el));
-  } else {
-    revealEls.forEach(el => el.classList.add('is-visible'));
-  }
 
   // --- Click and Drag to Scroll Logic ---
   const carousels = document.querySelectorAll('.card-visual');
