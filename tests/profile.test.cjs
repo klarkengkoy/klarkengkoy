@@ -133,3 +133,5 @@ console.log('Profile checks passed: assets, career entries, notes, galleries, im
 
 assert(html.includes('Currently working on personal Android projects using modern tools and practices while studying Japanese.'));
 assert(!html.includes('personal project · in progress'));
+
+assert(!html.includes('.pending-projects{grid-template-columns:repeat(2'));
