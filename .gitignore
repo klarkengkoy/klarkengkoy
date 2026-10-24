@@ -18,3 +18,6 @@ node_modules/
 # Build output (if you add a build step)
 dist/
 build/
+
+# Local assistant configuration
+/opencode.jsonc
