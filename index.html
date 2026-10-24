@@ -511,6 +511,14 @@
     mobileNav.classList.remove('is-open');
   }));
 
+  const hero = document.querySelector('.hero');
+  new ResizeObserver(() => {
+    const style = getComputedStyle(hero);
+    const height = hero.querySelector('.hero-content').getBoundingClientRect().height
+      + parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
+    hero.style.height = `${Math.ceil(height / 40) * 40}px`;
+  }).observe(hero.querySelector('.hero-content'));
+
   const viewer = document.querySelector('.image-viewer');
   const viewerImage = viewer.querySelector('img');
   viewer.querySelector('.viewer-close').addEventListener('click', () => viewer.close());
